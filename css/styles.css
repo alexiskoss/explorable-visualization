@@ -1,0 +1,44 @@
+@font-face {
+    font-family: 'OpenSansEmoji';
+    src: url(fonts/OpenSansEmoji/otf);
+}
+
+body {
+    font-family: 'OpenSansEmoji';
+    font-weight: 100;
+}
+
+/* grid */
+#grid-container {
+    width: 572px;
+    height: 572px;
+    font-size: 26px;
+}
+
+#grid-container > div {
+    width: 572px;
+    height: 44px;
+}
+
+#grid-container > div > div {
+    width: 44px;
+    height: 44px;
+    border: 1px solid #eeeeee;
+    float: left;
+}
+
+.border-top {
+    border-top: 2px solid #eeeeee!important;
+}
+
+.border-left {
+    border-left: 2px solid #eeeeee!important;
+}
+
+.border-right {
+    border-right: 2px solid #eeeeee!important;
+}
+
+.border-bottom {
+    border-bottom: 2px solid #eeeeee!important;
+}

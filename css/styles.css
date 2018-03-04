@@ -56,12 +56,6 @@ body {
     text-align: center;
 }
 
-#grid-bg > div > div span {
-    line-height: 2; 
-    display: inline-block;
-    vertical-align: middle;
-}
-
 /* editor */
 #editor-container {
     width: 340px;

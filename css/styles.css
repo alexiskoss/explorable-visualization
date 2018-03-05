@@ -3,4 +3,52 @@ path {
     stroke-width: 0.25px;
     fill: grey;
   }
-    
+
+  .d3-tip {
+    line-height: 1;
+    font-weight: bold;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 2px;
+  }
+
+  body {
+    font: 10px sans-serif;
+    margin: 0;
+  }
+  
+  path.line {
+    fill: none;
+    stroke: #666;
+    stroke-width: 1.5px;
+  }
+  
+  path.area {
+    fill: #e7e7e7;
+  }
+  
+  .axis {
+    shape-rendering: crispEdges;
+  }
+  
+  .x.axis line {
+    stroke: #fff;
+  }
+  
+  .x.axis .minor {
+    stroke-opacity: .5;
+  }
+  
+  .x.axis path {
+    display: none;
+  }
+  
+  .y.axis line, .y.axis path {
+    fill: none;
+    stroke: #000;
+  }
+  .guideline {
+    margin-right: 100px;
+    float: right;
+  }

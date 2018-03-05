@@ -6,10 +6,10 @@ let value = 0;
 let coralRows = Math.floor(rows * 0.70);
 let fishRows = rows - coralRows;
 let tempChoice = 25;
-let timer;
+let popTimer;
 let shrinkPopTimer;
 let popFishTimer;
-let timerArray = [];
+let popTimerArray = [];
 let shrinkPopArray = [];
 let popFishArray = [];
 gridSize();
@@ -59,8 +59,8 @@ $('#cold-temp').click(function(){
   shrinkPopArray.push(shrinkPopTimer);
 
   // stop populating coral + fish during healthy
-  for (var idx in timerArray) {
-    clearInterval(timerArray[idx]);
+  for (var idx in popTimerArray) {
+    clearInterval(popTimerArray[idx]);
   }
 
   // stop populating fish during stressed
@@ -111,8 +111,8 @@ $('#tolerable-cold-temp').click(function(){
   }
 
   // stop populating fish + coral during healthy
-  for (var idx in timerArray) {
-    clearInterval(timerArray[idx]);
+  for (var idx in popTimerArray) {
+    clearInterval(popTimerArray[idx]);
   }
 });
 
@@ -144,8 +144,8 @@ $('#optimal-temp').click(function(){
     .style('background-color', colors(tempChoice));
 
   // start populating coral + fish
-  timer = setInterval(populate, 1000);
-  timerArray.push(timer);
+  popTimer = setInterval(populate, 1000);
+  popTimerArray.push(popTimer);
 
   // stop removing fish + killing coral during bleached
   for (var idx in shrinkPopArray) {
@@ -200,8 +200,8 @@ $('#tolerable-hot-temp').click(function(){
   }
 
   // stop populating fish + coral during healthy
-  for (var idx in timerArray) {
-    clearInterval(timerArray[idx]);
+  for (var idx in popTimerArray) {
+    clearInterval(popTimerArray[idx]);
   }
 });
 
@@ -242,8 +242,8 @@ $('#hot-temp').click(function(){
   shrinkPopArray.push(shrinkPopTimer);
 
   // stop populating coral + fish during healthy
-  for (var idx in timerArray) {
-    clearInterval(timerArray[idx]);
+  for (var idx in popTimerArray) {
+    clearInterval(popTimerArray[idx]);
   }
 
   // stop populating fish during stressed
@@ -495,8 +495,8 @@ function gridSize() {
     }
   }
 
-  timer = setInterval(populate, 1000);
-  timerArray.push(timer);
+  popTimer = setInterval(populate, 1000);
+  popTimerArray.push(popTimer);
 }
 
 $(document).ready(function () {

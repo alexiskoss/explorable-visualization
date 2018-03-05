@@ -14,15 +14,245 @@ let shrinkPopArray = [];
 let popFishArray = [];
 gridSize();
 
-/*var colors = d3.scale.threshold()
-  .range(["#011628", "#083051", "#1d5482", "#66a4d6", "#a07070", "#752e2e"])
-  .domain([0, 18, 23, 30, 41, 61]);*/
+var colors = d3.scale.threshold()
+  .range(["#011628", "#0f5c9b", "#3e88c4", "#66a4d6", "#e8dede", "#c4a4a4"])
+  .domain([0, 18, 23, 30, 41, 61]);
 
 var coralColors = d3.scale.threshold()
-  .range(["#FFFFFF", "#EFE5E5", "#E6A1B2", "#E05073", "#E6A1B2", "#EFE5E5"])
+  .range(["#FFFFFF", "#FFFFFF", "#e8acb8", "#E05073", "#e8acb8", "#EFE5E5"])
   .domain([8, 18, 23, 30, 41, 51]);
 
-var oceanSlider = d3.select('#ocean-slider')
+$('#cold-temp').click(function(){
+  tempChoice = 17;
+  $('#slider-value').empty();
+  $('#slider-value').append(`Current water temperature is below 18° C`);
+
+  // remove dead coral
+  let deadCoral = d3.selectAll('.dead');
+  for(let i = 0; i < deadCoral.length; i++) {
+    $(deadCoral[i]).empty();
+    $(deadCoral[i]).removeClass("dead");
+  }
+
+  d3.selectAll('.coral-svg').selectAll('path')
+    .transition()
+    .duration(1000)
+    .style('fill', coralColors(tempChoice));
+
+  d3.selectAll('.ocean')
+    .transition()
+    .duration(1000)
+    .style('background-color', colors(tempChoice));
+
+  d3.selectAll('#grid-bg')
+    .transition()
+    .duration(1000)
+    .style('background-color', colors(tempChoice));
+
+  // stop removing fish + killing coral during hot bleached
+  for (var idx in shrinkPopArray) {
+    clearInterval(shrinkPopArray[idx]);
+  }
+
+  // start shrinking fish pop + killing coral
+  shrinkPopTimer = setInterval(shrink, 1000);
+  shrinkPopArray.push(shrinkPopTimer);
+
+  // stop populating coral + fish during healthy
+  for (var idx in timerArray) {
+    clearInterval(timerArray[idx]);
+  }
+
+  // stop populating fish during stressed
+  for (var idx in popFishArray) {
+    clearInterval(popFishArray[idx]);
+  }
+});
+
+$('#tolerable-cold-temp').click(function(){
+  tempChoice = 18;
+  $('#slider-value').empty();
+  $('#slider-value').append(`Current water temperature is between 18° C and 22° C`);
+
+  // remove dead coral
+  let deadCoral = d3.selectAll('.dead');
+  for(let i = 0; i < deadCoral.length; i++) {
+    $(deadCoral[i]).empty();
+    $(deadCoral[i]).removeClass("dead");
+  }
+
+  d3.selectAll('.coral-svg').selectAll('path')
+    .transition()
+    .duration(1000)
+    .style('fill', coralColors(tempChoice));
+
+  d3.selectAll('.ocean')
+    .transition()
+    .duration(1000)
+    .style('background-color', colors(tempChoice));
+
+  d3.selectAll('#grid-bg')
+    .transition()
+    .duration(1000)
+    .style('background-color', colors(tempChoice));
+
+  // stop populating fish during heat stressed 
+  for (var idx in popFishArray) {
+    clearInterval(popFishArray[idx]);
+  }
+
+  // start populating fish during stressed
+  popFishTimer = setInterval(populateFish, 1000);
+  popFishArray.push(popFishTimer);
+
+  // stop removing fish + killing coral during bleached
+  for (var idx in shrinkPopArray) {
+    clearInterval(shrinkPopArray[idx]);
+  }
+
+  // stop populating fish + coral during healthy
+  for (var idx in timerArray) {
+    clearInterval(timerArray[idx]);
+  }
+});
+
+$('#optimal-temp').click(function(){
+  tempChoice = 23;
+  $('#slider-value').empty();
+  $('#slider-value').append(`Current water temperature is between 23° C and 29° C`);
+
+  // remove dead coral
+  let deadCoral = d3.selectAll('.dead');
+  for(let i = 0; i < deadCoral.length; i++) {
+    $(deadCoral[i]).empty();
+    $(deadCoral[i]).removeClass("dead");
+  }
+
+  d3.selectAll('.coral-svg').selectAll('path')
+    .transition()
+    .duration(1000)
+    .style('fill', coralColors(tempChoice));
+
+  d3.selectAll('.ocean')
+    .transition()
+    .duration(1000)
+    .style('background-color', colors(tempChoice));
+
+  d3.selectAll('#grid-bg')
+    .transition()
+    .duration(1000)
+    .style('background-color', colors(tempChoice));
+
+  // start populating coral + fish
+  timer = setInterval(populate, 1000);
+  timerArray.push(timer);
+
+  // stop removing fish + killing coral during bleached
+  for (var idx in shrinkPopArray) {
+    clearInterval(shrinkPopArray[idx]);
+  }
+
+  // stop populating fish during stressed
+  for (var idx in popFishArray) {
+    clearInterval(popFishArray[idx]);
+  }
+});
+
+$('#tolerable-hot-temp').click(function(){
+  tempChoice = 30;
+  $('#slider-value').empty();
+  $('#slider-value').append(`Current water temperature is between 30° C and 40° C`);
+
+  // remove dead coral
+  let deadCoral = d3.selectAll('.dead');
+  for(let i = 0; i < deadCoral.length; i++) {
+    $(deadCoral[i]).empty();
+    $(deadCoral[i]).removeClass("dead");
+  }
+
+  d3.selectAll('.coral-svg').selectAll('path')
+    .transition()
+    .duration(1000)
+    .style('fill', coralColors(tempChoice));
+
+  d3.selectAll('.ocean')
+    .transition()
+    .duration(1000)
+    .style('background-color', colors(tempChoice));
+
+  d3.selectAll('#grid-bg')
+    .transition()
+    .duration(1000)
+    .style('background-color', colors(tempChoice));
+
+  // stop populating fish during cold stressed 
+  for (var idx in popFishArray) {
+    clearInterval(popFishArray[idx]);
+  }
+
+  // start populating fish during stressed
+  popFishTimer = setInterval(populateFish, 1000);
+  popFishArray.push(popFishTimer);
+
+  // stop removing fish + killing coral during bleached
+  for (var idx in shrinkPopArray) {
+    clearInterval(shrinkPopArray[idx]);
+  }
+
+  // stop populating fish + coral during healthy
+  for (var idx in timerArray) {
+    clearInterval(timerArray[idx]);
+  }
+});
+
+$('#hot-temp').click(function(){
+  tempChoice = 41;
+  $('#slider-value').empty();
+  $('#slider-value').append(`Current water temperature is above 40° C`);
+
+  // remove dead coral
+  let deadCoral = d3.selectAll('.dead');
+  for(let i = 0; i < deadCoral.length; i++) {
+    $(deadCoral[i]).empty();
+    $(deadCoral[i]).removeClass("dead");
+  }
+  
+  d3.selectAll('.coral-svg').selectAll('path')
+    .transition()
+    .duration(1000)
+    .style('fill', coralColors(tempChoice));
+
+  d3.selectAll('.ocean')
+    .transition()
+    .duration(1000)
+    .style('background-color', colors(tempChoice));
+
+  d3.selectAll('#grid-bg')
+    .transition()
+    .duration(1000)
+    .style('background-color', colors(tempChoice));
+
+  // stop removing fish + killing coral during cold bleached
+  for (var idx in shrinkPopArray) {
+    clearInterval(shrinkPopArray[idx]);
+  }
+
+  // start shrinking fish pop + killing coral
+  shrinkPopTimer = setInterval(shrink, 1000);
+  shrinkPopArray.push(shrinkPopTimer);
+
+  // stop populating coral + fish during healthy
+  for (var idx in timerArray) {
+    clearInterval(timerArray[idx]);
+  }
+
+  // stop populating fish during stressed
+  for (var idx in popFishArray) {
+    clearInterval(popFishArray[idx]);
+  }
+});
+
+/*var oceanSlider = d3.select('#ocean-slider')
 oceanSlider.append('input')
   .attr('id', 'ocean-input')
   .attr('type', 'range')
@@ -33,14 +263,14 @@ oceanSlider.append('input')
   .on('change', function () {
     $('#slider-value').empty();
     $('#slider-value').append(`Current water temperature: ${$("#ocean-input").val()}° C`)
-    tempChoice = parseInt(d3.select('#ocean-input').property('value'));
+    tempChoice = parseInt(d3.select('#ocean-input').property('value'));*/
     /*d3.selectAll('.ocean')
       .transition()
       .duration(1000)
       .style('background-color', colors(tempChoice));*/
 
     // grow coral & fish population when healthy
-    if(tempChoice < 23 || tempChoice > 29) {
+    /*if(tempChoice < 23 || tempChoice > 29) {
       for (var idx in timerArray) {
         clearInterval(timerArray[idx]);
       }
@@ -96,7 +326,7 @@ oceanSlider.append('input')
       .transition()
       .duration(1000)
       .style('fill', coralColors(tempChoice));
-  });
+  });*/
 
 function populateFish() {
   let fishExit = false;
@@ -152,7 +382,7 @@ function shrink() {
             d3.select(`#row${i} #col${j} span .coral-svg`).selectAll('path')
             .transition()
             .duration(1000)
-            .style('fill', "black");
+            .style('fill', "#3e3433");
             coralExit = true;
           }
         }

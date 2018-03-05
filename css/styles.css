@@ -35,6 +35,7 @@ body {
     bottom: 0px;
     vertical-align: middle;
     text-align: center;
+    background-color: #66a4d6;
 }
 
 #grid > div {
@@ -50,7 +51,6 @@ body {
 }
 
 #grid-bg > div > div {
-    border: 1px solid #4b87b7;
     position: absolute;
     text-align: center;
     background-color: #66a4d6;

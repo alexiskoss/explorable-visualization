@@ -5,14 +5,19 @@ let boardSize = 0;
 let value = 0;
 let coralRows = Math.floor(rows * 0.70);
 let fishRows = rows - coralRows;
+let tempChoice = 25;
+let timer;
 gridSize();
 
-var colors = d3.scale.threshold()
-  .range(["#011628", "#083051", "#1d5482", "#3f79a8", "#a07070", "#752e2e"])
+/*var colors = d3.scale.threshold()
+  .range(["#011628", "#083051", "#1d5482", "#4f8ec1", "#a07070", "#752e2e"])
+  .domain([0, 18, 23, 30, 41, 61]);*/
+
+var coralColors = d3.scale.threshold()
+  .range(["#FFFFFF", "#EFE5E5", "#E6A1B2", "#E05073", "#E6A1B2", "#EFE5E5"])
   .domain([0, 18, 23, 30, 41, 61]);
 
 var oceanSlider = d3.select('#ocean-slider')
-
 oceanSlider.append('input')
     .attr('id', 'ocean-input')
     .attr('type', 'range')
@@ -23,11 +28,17 @@ oceanSlider.append('input')
     .on('change', function () {
     $('#slider-value').empty();
     $('#slider-value').append(`Current water temperature: ${$("#ocean-input").val()}° C`)
-    var tempChoice = parseInt(d3.select('#ocean-input').property('value'))
-    d3.selectAll('.ocean')
+    tempChoice = parseInt(d3.select('#ocean-input').property('value'));
+    /*d3.selectAll('.ocean')
       .transition()
       .duration(1000)
-      .style('background-color', colors(tempChoice));
+      .style('background-color', colors(tempChoice));*/
+
+    if(tempChoice < 23 || tempChoice > 29) {
+      clearInterval(timer);
+    } else {
+      timer = setInterval(populate, 7000);
+    }
 
     $('#ocean-status').empty();
     if(tempChoice < 18) {
@@ -42,12 +53,17 @@ oceanSlider.append('input')
       $('#ocean-status').append("Ocean temperature is too hot!")
     }
 
+    d3.selectAll('.coral').selectAll('path')
+    .transition()
+    .duration(1000)
+    .style('fill', coralColors(tempChoice));
+
     });
 
 function populate() {
   let fishExit = false;
   let coralExit = false;
-  console.log("Start")
+
   for (let i = 1; i <= rows; i++) {
     for (let j = 1; j <= columns; j++) {
       let = randomNumber = Math.floor((Math.random() * 100) + 1)
@@ -57,7 +73,7 @@ function populate() {
         }
         if ($(`#row${i} #col${j} span`).html() == "") {
           if (randomNumber <= 5) {
-            $(`#row${i} #col${j} span`).append(`<img src="svg/fishes.svg" height="${value / 2}px" width="${value / 2}px">`);
+            $(`#row${i} #col${j} span`).append(`<img class="fish" src="svg/fishes.svg" height="${value / 2}px" width="${value / 2}px">`);
             fishExit = true;
           }
         }
@@ -67,20 +83,20 @@ function populate() {
         }
         if ($(`#row${i} #col${j} span`).html() == "") {
           if (randomNumber <= 10) {
-            $(`#row${i} #col${j} span`).append(`<img src="svg/coral.svg" height="${value / 2}px" width="${value / 2}px">`);
+            $(`#row${i} #col${j} span`).append(`<img class="coral" src="svg/coral.svg" height="${value / 2}px" width="${value / 2}px">`);
             coralExit = true;
           }
         }
       }
       $(`#row${i} #col${j} span img`).css("margin-top", ((value / 2) / 2) - 1);
       $(`#row${i} #col${j} span img`).css("margin-bottom", ((value / 2) / 2) - 1);
+      convertToSvg();
+
       if (fishExit || coralExit) {
-        console.log("Exit");
         break;
       }
     }
     if (fishExit || coralExit) {
-      console.log("Exit");
       break;
     }
   }
@@ -121,13 +137,13 @@ function gridSize() {
       let = randomNumber = Math.floor((Math.random() * 100) + 1)
       if (fishRows >= i) {
         if (randomNumber <= 40) {
-          $(`#row${i}`).append(`<div class="ocean" id="col${j}"><span><img src="svg/fishes.svg" height="${value / 2}px" width="${value / 2}px"></span></div>`);
+          $(`#row${i}`).append(`<div class="ocean" id="col${j}"><span><img class="fish" src="svg/fishes.svg" height="${value / 2}px" width="${value / 2}px"></span></div>`);
         } else {
           $(`#row${i}`).append(`<div class="ocean" id="col${j}"><span></span></div>`);
         }
       } else {
         if (randomNumber <= 70) {
-          $(`#row${i}`).append(`<div class="ocean" id="col${j}"><span><img src="svg/coral.svg" height="${value / 2}px" width="${value / 2}px"></span></div>`);
+          $(`#row${i}`).append(`<div class="ocean" id="col${j}"><span><img class="coral" src="svg/coral.svg" height="${value / 2}px" width="${value / 2}px"></span></div>`);
         } else {
           $(`#row${i}`).append(`<div class="ocean" id="col${j}"><span></span></div>`);
         }
@@ -142,5 +158,33 @@ function gridSize() {
     }
   }
 
-  let timer = setInterval(populate, 7000);
+    timer = setInterval(populate, 7000);
+}
+
+$(document).ready(function() {
+  convertToSvg();
+});
+
+function convertToSvg() {
+  $('img[src$=".svg"]').each(function() {
+    var $img = jQuery(this);
+    var imgURL = $img.attr('src');
+    var attributes = $img.prop("attributes");
+
+    $.get(imgURL, function(data) {
+        // Get the SVG tag, ignore the rest
+        var $svg = jQuery(data).find('svg');
+
+        // Remove any invalid XML tags
+        $svg = $svg.removeAttr('xmlns:a');
+
+        // Loop through IMG attributes and apply on SVG
+        $.each(attributes, function() {
+            $svg.attr(this.name, this.value);
+        });
+
+        // Replace IMG with SVG
+        $img.replaceWith($svg);
+    }, 'xml');
+  });
 }

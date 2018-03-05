@@ -50,10 +50,10 @@ body {
 }
 
 #grid-bg > div > div {
-    border: 1px solid #33658e;
+    border: 1px solid #3e77a5;
     position: absolute;
     text-align: center;
-    background-color: #3f79a8;
+    background-color: #4f8ec1;
 }
 
 /* editor */
@@ -70,6 +70,3 @@ body {
 .text-field {
     width: 45% !important;
 }
-
-/* ocean colors */
-

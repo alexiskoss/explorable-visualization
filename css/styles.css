@@ -23,7 +23,6 @@ body {
     font-size: 26px;
     display: 'inline-block';
     float: left;
-    background-color: #FFFFFF;
 }
 
 #grid-bg {
@@ -51,9 +50,10 @@ body {
 }
 
 #grid-bg > div > div {
-    border: 1px solid #A8A8A8;
+    border: 1px solid #33658e;
     position: absolute;
     text-align: center;
+    background-color: #3f79a8;
 }
 
 /* editor */
@@ -70,3 +70,6 @@ body {
 .text-field {
     width: 45% !important;
 }
+
+/* ocean colors */
+

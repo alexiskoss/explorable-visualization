@@ -266,7 +266,7 @@ function mapAnimation(dataset, year) {
 
 //creates legend for the map graph
 var legend = svg.selectAll(".legend")
-    .data(["#ec4e4e", "#ee9a54", "#f6df53", "#00994C"])
+    .data(["#ec4e4e", "#ee9a54", "#f6df53"])
     .enter().append("g")
     .attr("class", "legend")
     .attr("transform", function(d, i) { return "translate(" + 320 + ',' + i * 20 + ")"; });
@@ -286,12 +286,10 @@ legend.append("text")
     .style("text-anchor", "end")
     .text(function(d) { 
         if(d == "#ec4e4e") {
-            return "High"
+            return "High Bleach"
         } else if(d == "#ee9a54") {
-            return "Med."
+            return "Med. Bleach"
         } else if(d == "#f6df53") {
-            return "Low"
-        } else {
-            return "No bleaching"
+            return "Low Bleach"
         }
     });

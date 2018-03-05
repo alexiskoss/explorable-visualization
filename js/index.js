@@ -1,3 +1,54 @@
+let rows = parseInt($("#rows").val());
+let columns = parseInt($("#columns").val());
+let divideVal = 0;
+let boardSize = 0;
+let value = 0;
+let coralRows = Math.floor(rows * 0.70);
+let fishRows = rows - coralRows;
+gridSize();
+
+function populate() {
+    let fishExit = false;
+    let coralExit = false;
+    console.log("Start")
+    for(let i = 1; i <= rows; i++) {
+        for(let j = 1; j <= columns; j++) {
+            let = randomNumber = Math.floor((Math.random() * 100) + 1)
+            if(fishRows >= i) {
+                if(fishExit) {
+                    break;
+                }
+                if($(`#row${i} #col${j} span`).html() == "") {
+                    if(randomNumber <= 5) {
+                        $(`#row${i} #col${j} span`).append(`<img src="svg/fishes.svg" height="${value / 2}px" width="${value / 2}px">`);
+                        fishExit = true;
+                    } 
+                }
+            } else {
+                if(coralExit) {
+                    break;
+                }
+                if($(`#row${i} #col${j} span`).html() == "") {
+                    if(randomNumber <= 10) {
+                        $(`#row${i} #col${j} span`).append(`<img src="svg/coral.svg" height="${value / 2}px" width="${value / 2}px">`);
+                        coralExit = true;
+                    }
+                }
+            }
+            $(`#row${i} #col${j} span img`).css("margin-top", ((value / 2) / 2) - 1);
+            $(`#row${i} #col${j} span img`).css("margin-bottom", ((value / 2) / 2) - 1);
+            if(fishExit || coralExit) {
+                console.log("Exit");
+                break;
+            }
+        }
+        if(fishExit || coralExit) {
+            console.log("Exit");
+            break;
+        }
+    }
+}
+
 $("#rows").on("input", function(e) {
     gridSize();
 });
@@ -7,20 +58,15 @@ $("#columns").on("input", function(e) {
 });
 
 function gridSize() {
-    let rows = parseInt($("#rows").val());
-    let columns = parseInt($("#columns").val());
-    let divideVal = 0;
-    let boardSize = 0;
-    let value = 0;
-    let coralRows = Math.floor(rows * 0.70);
-    let fishRows = rows - coralRows;
+    rows = parseInt($("#rows").val());
+    columns = parseInt($("#columns").val());
 
     if(columns > rows) {
         boardSize = 528;
         divideVal = columns;
         value = Math.floor(boardSize/divideVal);
     } else {
-        boardSize = 484;
+        boardSize = 462;
         divideVal = rows;
         value = Math.floor(boardSize/divideVal);
     } 
@@ -35,20 +81,16 @@ function gridSize() {
             
             let = randomNumber = Math.floor((Math.random() * 100) + 1)
             if(fishRows >= i) {
-                console.log("fish!")
-                console.log(fishRows)
-                console.log(i);
                 if(randomNumber <= 40) {
-                    $(`#row${i}`).append(`<div id="col${j}"><span><img src="svg/fishes.svg" height="${value / 2}px" width="${value / 2}px"></span></div>`) 
+                    $(`#row${i}`).append(`<div id="col${j}"><span><img src="svg/fishes.svg" height="${value / 2}px" width="${value / 2}px"></span></div>`); 
                 } else {
-                    $(`#row${i}`).append(`<div id="col${j}"><span></span></div>`)
+                    $(`#row${i}`).append(`<div id="col${j}"><span></span></div>`);
                 }
             } else {
-                console.log("coral!")
                 if(randomNumber <= 70) {
-                    $(`#row${i}`).append(`<div id="col${j}"><span><img src="svg/coral.svg" height="${value / 2}px" width="${value / 2}px"></span></div>`) 
+                    $(`#row${i}`).append(`<div id="col${j}"><span><img src="svg/coral.svg" height="${value / 2}px" width="${value / 2}px"></span></div>`);
                 } else {
-                    $(`#row${i}`).append(`<div id="col${j}"><span></span></div>`)
+                    $(`#row${i}`).append(`<div id="col${j}"><span></span></div>`);
                 }
             } 
 
@@ -61,6 +103,6 @@ function gridSize() {
         }
     }
 
-
-    console.log($(`#row1 #col1 span`).html());
+    //console.log($(`#row1 #col1 span`).html());
+    let timer = setInterval(populate, 7000);
 }

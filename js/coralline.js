@@ -254,3 +254,9 @@ d3.select("#coral-line-title").append('h1')
 
 });
 }
+
+function linkHover(bleaching){
+    if(bleaching == "high") {
+        
+    }
+}

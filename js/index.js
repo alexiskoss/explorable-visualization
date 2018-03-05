@@ -12,6 +12,7 @@ let popFishTimer;
 let popTimerArray = [];
 let shrinkPopArray = [];
 let popFishArray = [];
+
 gridSize();
 
 var colors = d3.scale.threshold()
@@ -21,6 +22,12 @@ var colors = d3.scale.threshold()
 var coralColors = d3.scale.threshold()
   .range(["#FFFFFF", "#FFFFFF", "#e8acb8", "#E05073", "#e8acb8", "#EFE5E5"])
   .domain([8, 18, 23, 30, 41, 51]);
+
+$('#start').click(function(){
+  popTimer = setInterval(populate, 2000);
+  popTimerArray.push(popTimer);
+});
+  
 
 $('#cold-temp').click(function(){
   tempChoice = 17;
@@ -55,7 +62,7 @@ $('#cold-temp').click(function(){
   }
 
   // start shrinking fish pop + killing coral
-  shrinkPopTimer = setInterval(shrink, 1000);
+  shrinkPopTimer = setInterval(shrink, 2000);
   shrinkPopArray.push(shrinkPopTimer);
 
   // stop populating coral + fish during healthy
@@ -102,7 +109,7 @@ $('#tolerable-cold-temp').click(function(){
   }
 
   // start populating fish during stressed
-  popFishTimer = setInterval(populateFish, 1000);
+  popFishTimer = setInterval(populateFish, 2000);
   popFishArray.push(popFishTimer);
 
   // stop removing fish + killing coral during bleached
@@ -144,7 +151,7 @@ $('#optimal-temp').click(function(){
     .style('background-color', colors(tempChoice));
 
   // start populating coral + fish
-  popTimer = setInterval(populate, 1000);
+  popTimer = setInterval(populate, 2000);
   popTimerArray.push(popTimer);
 
   // stop removing fish + killing coral during bleached
@@ -191,7 +198,7 @@ $('#tolerable-hot-temp').click(function(){
   }
 
   // start populating fish during stressed
-  popFishTimer = setInterval(populateFish, 1000);
+  popFishTimer = setInterval(populateFish, 2000);
   popFishArray.push(popFishTimer);
 
   // stop removing fish + killing coral during bleached
@@ -238,7 +245,7 @@ $('#hot-temp').click(function(){
   }
 
   // start shrinking fish pop + killing coral
-  shrinkPopTimer = setInterval(shrink, 1000);
+  shrinkPopTimer = setInterval(shrink, 2000);
   shrinkPopArray.push(shrinkPopTimer);
 
   // stop populating coral + fish during healthy
@@ -251,82 +258,6 @@ $('#hot-temp').click(function(){
     clearInterval(popFishArray[idx]);
   }
 });
-
-/*var oceanSlider = d3.select('#ocean-slider')
-oceanSlider.append('input')
-  .attr('id', 'ocean-input')
-  .attr('type', 'range')
-  .attr('min', 8)
-  .attr('max', 50)
-  .attr('step', 1)
-  .attr('value', 25)
-  .on('change', function () {
-    $('#slider-value').empty();
-    $('#slider-value').append(`Current water temperature: ${$("#ocean-input").val()}° C`)
-    tempChoice = parseInt(d3.select('#ocean-input').property('value'));*/
-    /*d3.selectAll('.ocean')
-      .transition()
-      .duration(1000)
-      .style('background-color', colors(tempChoice));*/
-
-    // grow coral & fish population when healthy
-    /*if(tempChoice < 23 || tempChoice > 29) {
-      for (var idx in timerArray) {
-        clearInterval(timerArray[idx]);
-      }
-    } else {
-      timer = setInterval(populate, 1000);
-      timerArray.push(timer);
-    }
-
-    // shrink fish & kill coral population when bleached
-    if(tempChoice < 18 || tempChoice > 40) {
-      shrinkPopTimer = setInterval(shrink, 1000);
-      shrinkPopArray.push(shrinkPopTimer);
-      let deadCoral = d3.selectAll('.dead');
-      for(let i = 0; i < deadCoral.length; i++) {
-        $(deadCoral[i]).empty();
-        $(deadCoral[i]).removeClass("dead");
-      }
-    } else {
-      for (var idx in shrinkPopArray) {
-        clearInterval(shrinkPopArray[idx]);
-      }
-    }
-
-    // gradually add fish back during stressed
-    if((tempChoice >= 18 && tempChoice < 23) || (tempChoice > 29 && tempChoice <= 40)) {
-      popFishTimer = setInterval(populateFish, 1000);
-      popFishArray.push(popFishTimer);
-      let deadCoral = d3.selectAll('.dead');
-      for(let i = 0; i < deadCoral.length; i++) {
-        $(deadCoral[i]).empty();
-        $(deadCoral[i]).removeClass("dead");
-      }
-    } else {
-      for (var idx in popFishArray) {
-        clearInterval(popFishArray[idx]);
-      }
-    }
-
-    $('#ocean-status').empty();
-    if (tempChoice < 18) {
-      $('#ocean-status').append("Ocean temperature is too cold!")
-    } else if (tempChoice >= 18 && tempChoice < 23) {
-      $('#ocean-status').append("Ocean temperature is cold!")
-    } else if (tempChoice >= 23 && tempChoice <= 29) {
-      $('#ocean-status').append("Ocean temperature is optimal!")
-    } else if (tempChoice > 29 && tempChoice <= 40) {
-      $('#ocean-status').append("Ocean temperature is tolerable!")
-    } else if (tempChoice > 40) {
-      $('#ocean-status').append("Ocean temperature is too hot!")
-    }
-
-    d3.selectAll('.coral-svg').selectAll('path')
-      .transition()
-      .duration(1000)
-      .style('fill', coralColors(tempChoice));
-  });*/
 
 function populateFish() {
   let fishExit = false;
@@ -440,11 +371,45 @@ function populate() {
 }
 
 $("#rows").on("input", function (e) {
+  // stop populating fish during stressed 
+  for (var idx in popFishArray) {
+    clearInterval(popFishArray[idx]);
+  }
+
+  // stop removing fish + killing coral during bleached
+  for (var idx in shrinkPopArray) {
+    clearInterval(shrinkPopArray[idx]);
+  }
+
+  // stop populating fish + coral during healthy
+  for (var idx in popTimerArray) {
+    clearInterval(popTimerArray[idx]);
+  }
+
   gridSize();
+  popTimer = setInterval(populate, 2000);
+  popTimerArray.push(popTimer);
 });
 
 $("#columns").on("input", function (e) {
+  // stop populating fish during stressed 
+  for (var idx in popFishArray) {
+    clearInterval(popFishArray[idx]);
+  }
+
+  // stop removing fish + killing coral during bleached
+  for (var idx in shrinkPopArray) {
+    clearInterval(shrinkPopArray[idx]);
+  }
+
+  // stop populating fish + coral during healthy
+  for (var idx in popTimerArray) {
+    clearInterval(popTimerArray[idx]);
+  }
+  
   gridSize();
+  popTimer = setInterval(populate, 2000);
+  popTimerArray.push(popTimer);
 });
 
 function gridSize() {
@@ -494,9 +459,6 @@ function gridSize() {
       $(`#row${i} #col${j}`).css("left", value * (j - 1));
     }
   }
-
-  popTimer = setInterval(populate, 1000);
-  popTimerArray.push(popTimer);
 }
 
 $(document).ready(function () {

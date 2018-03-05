@@ -1,54 +1,114 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
 path {
     stroke: white;
     stroke-width: 0.25px;
     fill: grey;
   }
 
-  .d3-tip {
+.d3-tip {
     line-height: 1;
     font-weight: bold;
     padding: 12px;
     background: rgba(0, 0, 0, 0.8);
     color: #fff;
     border-radius: 2px;
-  }
+}
 
-  body {
-    font: 10px sans-serif;
+body {
+    font-size: 16px;
+    font-family: "Lato", sans-serif;
     margin: 0;
-  }
-  
-  path.line {
+}
+
+.content-container {
+    width: 40%;
+    margin: 0 auto;
+}
+
+.author {
+    text-align: center;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 0px;
+    font-size: 50px;
+    text-transform: uppercase;
+    color: #19a8b4;
+}
+
+h2 {
+    margin-top: 0px;
+}
+
+p {
+    line-height: 28px;
+}
+
+#coral-line, #coral-line-explain {
+    float: left;
+}
+
+#coral-line {
+    text-align: left;
+}
+
+#coral-line-explain {
+    width: 30%;
+}
+
+#home {
+    background-image: url("../images/home.jpg");
+    height: 550px;
+    background-size: cover;         
+    background-repeat: no-repeat;
+    background-position: center center;  
+}
+
+#coral-images {
+    margin: 0 auto;
+}
+
+.images {
+    text-align: center;
+}
+
+.coral-container {
+    text-align: center;
+    display: inline-block;
+}
+
+path.line {
     fill: none;
     stroke: #666;
     stroke-width: 1.5px;
-  }
-  
-  path.area {
+}
+
+path.area {
     fill: #e7e7e7;
-  }
-  
-  .axis {
+}
+
+.axis {
     shape-rendering: crispEdges;
-  }
-  
-  .x.axis line {
+}
+
+.x.axis line {
     stroke: #fff;
-  }
-  
-  .x.axis .minor {
+}
+
+.x.axis .minor {
     stroke-opacity: .5;
-  }
-  
-  .x.axis path {
+}
+
+.x.axis path {
     display: none;
-  }
-  
-  .y.axis line, .y.axis path {
+}
+
+.y.axis line, .y.axis path {
     fill: none;
     stroke: #000;
-  }
-  .guideline {
-    margin-right: 100px;
-    float: right;
-  }
+}

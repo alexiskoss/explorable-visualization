@@ -3,14 +3,78 @@
 <head>
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>    
+<body>  
+  <div class="content-container">
+    <h1>Coral Reefs</h1>
+    <h2>Are Slowly Disappearing</h2> 
+    <p>Global warming isn’t just warming surface temperatures around the world, it’s also harming our reefs as ocean water temperatures rise higher and higher every year. Find out what it means for the economy, those who depend on the reefs for food, and local marine life.</p> 
+    <p class="author">by Alexis Koss &amp; Lisa Koss</p>
+  </div>
+
+  <div id="home">
+  </div>
+
+  <div class="content-container" id="coral-images">
+    <p>Numerous things can cause coral bleaching to occur, including small changes in ocean temperatures (colder temperatures affect coral too!), runoff and pollution, overexposure to sunlight, and extreme low tides (<a href="https://www.climatecouncil.org.au/climate-change-threat-to-reef">source</a>). Mostly driven by climate change, sea surface temperatures are rising each year and even just a small increase of 1 °C can cause global bleaching events to occur (<a href=“http://time.com/coral/“>source</a>).  The longer a bleaching event lasts, the chance for a reef to recovery rapidly diminishes.</p>
+    <p>Both coral and algae, called zooxanthellae, depend on each other to live. Without the algae, the coral cannot prosper and will lose it’s distinctive color. When the coral begins to be stressed, the algae will be expelled from the coral, usually due to rising water temperatures the coral cannot withstand.</p> 
+    <p>When this happens, it is believed that coral programmatically kill some of their weaker cells, so they have a chance for recovery later when the bleaching event is over (<a href="https://www.simplyscuba.com/blogs/blog/why-corals-die-from-stress-in-warmer-oceans">source</a>). As soon as the algae are absent from the coral for long periods of time, the entire coral will start to turn white and very pale because it’s major food source is missing.</p>
+    <div class="images">
+      <div class='coral-container'><img class="coral-img" src="/images/healthy.png"><p>Healthy</p></div>
+      <div class='coral-container'><img class="coral-img"  src="/images/stressed.png"><p>Stressed</p></div>
+      <div class='coral-container'><img class="coral-img" src="/images/bleached.png"><p>Bleached</p></div>
+      <div class='coral-container'><img class="coral-img" src="/images/dead.png"><p>Dead</p></div>
+    </div>
+  </div>
+
+  <div id="coral-description" class="content-container">
+      <p></p>
+      <p>If the bleaching event lasts too long, a coral will have no chance to recover. A bleached coral is not only very susceptible to disease, but it is also starving while the algae are expelled. Once a coral is under stress for too long of a time period, it will die and turn a brown, black color since the coral’s tissues have disappeared and algae have reappeared to use the dead coral as a host (<a href=“https://www.climatecouncil.org.au/climate-change-threat-to-reef”>source</a>).</p> 
+      <p>It only takes a few weeks for coral to become bleached, but can take months for an entire reef to recover back to its original, healthy state. No doubt, some rate of mortality will be seen as coral try to recover during their bleaching stage.</p>
+      <p>Over the last few decades, many coral bleaching events have occurred worldwide, causing severe damage. Most notably, there were major bleaching events during 1998, 2002, and 2005 due to higher than average summer sea surface temperatures.</p>
+    </div>
+
+  <div id="coral-map-title">
+
+  </div>
+
   <div id="coral-map">
     
+  </div>
+
+  <div id="coral-map-legend" class="content-container">
+
+  </div>
+
+  <div id="coral-map-desc" class="content-container">
+
+  </div>
+
+  <div id="coral-map-slider" class="content-container">
+
+  </div>
+
+  <div id="coral-map-explain" class="content-container">
+    <p>a</p>
+    <p>The map shows the reports of coral bleaching from 1983-2010.</p>
+    <p><a href="javascript:linkUpdate(1998)">1998 coral bleaching event.</a></p>
+    <p><a href="javascript:linkUpdate(2002)">2002 coral bleaching event.</a></p>
+    <p><a href="javascript:linkUpdate(2005)">2005 coral bleaching event.</a></p>
+  </div>
+
+  <div id="coral-line-title">
+
   </div>
 
   <div id="coral-line">
     
   </div>
+
+  <div id="coral-line-explain" class="content-container">
+      <p>Over the last few decades, many coral bleaching events have occurred worldwide, causing severe damage. Most notably, there were bleaching events during 1998, 2002, and 2005 due to higher than average summer sea surface temperatures.</p>
+      <p><a href="javascript:linkHover(high)">High bleaching.</a></p>
+  </div>
+
+
 
   <script src="//d3js.org/d3.v3.min.js"></script>
   <script src="//d3js.org/queue.v1.min.js"></script>
@@ -18,8 +82,11 @@
   <script src="//d3js.org/topojson.v0.min.js"></script>
   <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
   <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+  <script src="https://cdn.jsdelivr.net/scrollreveal.js/3.3.1/scrollreveal.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/noframework.waypoints.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tipsy/1.0.3/jquery.tipsy.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.13.0/d3-legend.min.js"></script>
   <script defer src="js/coralmap.js"></script>
   <script defer src="js/coralline.js"></script>
-  
 </body>
 </html>

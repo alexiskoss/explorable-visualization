@@ -2,9 +2,11 @@
 <meta charset="utf-8">
 <head>
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
 </head>
-
-<body>  
+<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+<body> 
   <div class="content-container">
     <h1>Coral Reefs</h1>
     <h2>Are Slowly Disappearing</h2> 
@@ -75,6 +77,40 @@
       <p><a href="javascript:linkHover(high)">High bleaching.</a></p>
   </div>
 
+  <div style="clear: both"><h1>Coral Bleaching Simulator</h1></div>
+  <div class="content-container simulation">
+      <div id="grid-container">
+        <div id="grid-bg"></div>
+        <div id="grid"></div>
+      </div> 
+      <div id="editor-container">
+        <h5>Change the Grid Size</h5>
+        <form action="#">
+            <input id="columns" type="text" name="columns" value="8">
+            <input id="rows" type="text" name="rows" value="7">
+        </form>
+
+        <h5>Change the Ocean's Temperature</h5>
+        <div id="slider-value">Current water temperature: 25° C</div>
+        <button id="cold-temp" type="button">Too cold!</button>  <button id="tolerable-cold-temp" type="button">Slightly cold!</button> <button id="optimal-temp" type="button">Optimal!</button>  <button id="tolerable-hot-temp" type="button">Slightly hot!</button>  <button id="hot-temp" type="button">Too Hot!</button> 
+        <br><br>
+        s Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vel quam quis augue viverra tempor. Integer sit amet massa tellus. Etiam tincidunt nisi maximus, auctor diam feugiat, sollicitudin magna. Cras a semper neque. Sed nec efficitur eros, eu egestas neque. Phasellus euismod rhoncus ante, quis imperdiet orci interdum non. Proin imperdiet a libero non convallis. Proin et rhoncus leo. Aliquam id est eget justo molestie sagittis non nec justo. Fusce non nulla venenatis, fermentum mauris vel, maximus ante. Phasellus sodales, nunc eget venenatis pretium, lorem massa ultricies risus, at aliquet tellus nunc ut dolor. Phasellus hendrerit laoreet ipsum, vehicula gravida sapien feugiat id. Integer rhoncus nec mi eget varius. Phasellus non nisi quis nulla suscipit convallis. Nullam a magna consectetur, sodales ipsum ut, congue erat. Maecenas urna nisi, pharetra et dolor at, hendrerit ullamcorper sem.
+
+        Cras rhoncus venenatis nisi id rhoncus. Phasellus vehicula enim id tortor egestas, ut vulputate enim sollicitudin. Cras sodales mauris at mattis euismod. Nam pulvinar quam ut blandit ullamcorper. Sed facilisis orci lorem, vel fermentum nisi placerat ac. Maecenas ante neque, dignissim ut est eu, auctor bibendum nisl. Proin arcu elit, convallis sed varius et, tempus et nulla.
+
+        Vestibulum sagittis rhoncus augue eget porta. Morbi magna eros, vestibulum ac suscipit vitae, tristique quis diam. Nullam facilisis mauris sed justo volutpat vulputate. Duis venenatis nec nisl et placerat. Proin a nisi augue. Fusce scelerisque purus urna, nec rutrum arcu sodales eget. Nunc a erat nec eros sollicitudin mollis. In facilisis mi eget pellentesque aliquet. Nam ornare facilisis risus, ac varius tortor faucibus non. Phasellus a auctor eros. Mauris at efficitur ligula. Fusce at faucibus metus. Phasellus convallis leo sagittis, volutpat nisl id, placerat velit.
+
+        Fusce mattis orci in ligula consectetur, non fringilla eros aliquet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam tempus ligula id magna fermentum, quis eleifend sem mollis. Morbi varius urna id nunc viverra, quis egestas tellus finibus. Cras convallis tortor id felis euismod, bibendum vehicula neque egestas. Nunc varius sem odio, eget interdum lorem semper et. Nullam in maximus nibh, id molestie nunc. Fusce facilisis, tortor vel sagittis fringilla, nulla lorem finibus eros, sed consectetur ante dui nec ligula. Cras scelerisque orci et lorem tempor mollis. Praesent sagittis justo odio, at tincidunt felis tempus laoreet. 
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vel quam quis augue viverra tempor. Integer sit amet massa tellus. Etiam tincidunt nisi maximus, auctor diam feugiat, sollicitudin magna. Cras a semper neque. Sed nec efficitur eros, eu egestas neque. Phasellus euismod rhoncus ante, quis imperdiet orci interdum non. Proin imperdiet a libero non convallis. Proin et rhoncus leo. Aliquam id est eget justo molestie sagittis non nec justo. Fusce non nulla venenatis, fermentum mauris vel, maximus ante. Phasellus sodales, nunc eget venenatis pretium, lorem massa ultricies risus, at aliquet tellus nunc ut dolor. Phasellus hendrerit laoreet ipsum, vehicula gravida sapien feugiat id. Integer rhoncus nec mi eget varius. Phasellus non nisi quis nulla suscipit convallis. Nullam a magna consectetur, sodales ipsum ut, congue erat. Maecenas urna nisi, pharetra et dolor at, hendrerit ullamcorper sem.
+
+        Cras rhoncus venenatis nisi id rhoncus. Phasellus vehicula enim id tortor egestas, ut vulputate enim sollicitudin. Cras sodales mauris at mattis euismod. Nam pulvinar quam ut blandit ullamcorper. Sed facilisis orci lorem, vel fermentum nisi placerat ac. Maecenas ante neque, dignissim ut est eu, auctor bibendum nisl. Proin arcu elit, convallis sed varius et, tempus et nulla.
+        
+        Vestibulum sagittis rhoncus augue eget porta. Morbi magna eros, vestibulum ac suscipit vitae, tristique quis diam. Nullam facilisis mauris sed justo volutpat vulputate. Duis venenatis nec nisl et placerat. Proin a nisi augue. Fusce scelerisque purus urna, nec rutrum arcu sodales eget. Nunc a erat nec eros sollicitudin mollis. In facilisis mi eget pellentesque aliquet. Nam ornare facilisis risus, ac varius tortor faucibus non. Phasellus a auctor eros. Mauris at efficitur ligula. Fusce at faucibus metus. Phasellus convallis leo sagittis, volutpat nisl id, placerat velit.
+        
+        Fusce mattis orci in ligula consectetur, non fringilla eros aliquet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam tempus ligula id magna fermentum, quis eleifend sem mollis. Morbi varius urna id nunc viverra, quis egestas tellus finibus. Cras convallis tortor id felis euismod, bibendum vehicula neque egestas. Nunc varius sem odio, eget interdum lorem semper et. Nullam in maximus nibh, id molestie nunc. Fusce facilisis, tortor vel sagittis fringilla, nulla lorem finibus eros, sed consectetur ante dui nec ligula. Cras scelerisque orci et lorem tempor mollis. Praesent sagittis justo odio, at tincidunt felis tempus laoreet. 
+      </div>     
+  </div>
+
   <script src="//d3js.org/d3.v3.min.js"></script>
   <script src="//d3js.org/queue.v1.min.js"></script>
   <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
@@ -87,5 +123,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.13.0/d3-legend.min.js"></script>
   <script defer src="js/coralmap.js"></script>
   <script defer src="js/coralline.js"></script>
+  <script defer src="js/index.js"></script>
 </body>
 </html>

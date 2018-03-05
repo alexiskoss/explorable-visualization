@@ -61,6 +61,14 @@ p {
     width: 30%;
 }
 
+.simulation {
+    overflow: auto;
+    border: 1px solid #A8A8A8;
+    border-radius: 0px 25px 25px 0px;
+    background-color: #DEDEDE;
+    width: 920px;
+}
+
 #home {
     background-image: url("../images/home.jpg");
     height: 550px;
@@ -111,38 +119,57 @@ path.area {
 .y.axis line, .y.axis path {
     fill: none;
     stroke: #000;
+}
 
 /* grid */
 #grid-container {
-    width: 572px;
-    height: 572px;
     font-size: 26px;
+    display: 'inline-block';
 }
 
-#grid-container > div {
-    width: 572px;
-    height: 44px;
-}
-
-#grid-container > div > div {
-    width: 44px;
-    height: 44px;
-    border: 1px solid #eeeeee;
+#grid-bg {
+    width: 528px;
+    height: 462px;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    vertical-align: middle;
+    text-align: center;
+    background-color: #66a4d6;
     float: left;
 }
 
-.border-top {
-    border-top: 2px solid #eeeeee!important;
+#grid > div {
+    width: 528px;
+    height: 44px;
 }
 
-.border-left {
-    border-left: 2px solid #eeeeee!important;
+#grid > div > div {
+    width: 44px;
+    height: 44px;
+    float: left;
+    text-align: center;
 }
 
-.border-right {
-    border-right: 2px solid #eeeeee!important;
+#grid-bg > div > div {
+    position: absolute;
+    text-align: center;
+    background-color: #66a4d6;
 }
 
-.border-bottom {
-    border-bottom: 2px solid #eeeeee!important;
+/* editor */
+#editor-container {
+    width: 360px;
+    height: 440px;
+    display: 'inline-block';
+    float: left;
+    overflow: auto;
+    padding: 0px 10px;
+    margin-top: 14px;
+}
+
+.text-field {
+    width: 45% !important;
 }

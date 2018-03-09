@@ -8,13 +8,14 @@ let noArray;
 let waypoint = new Waypoint({
   element: document.getElementById('coral-map-explain'),
   handler: function (direction) {
+    d3.select("#coral-line svg").remove();
     intialize("all");
   }
 })
 
 d3.csv("data/CoralBleachingCleaned.csv", function (error, data) {
 
-  //for creation of zipcode drop menu
+  //for creation of bleaching filter drop menu
   var select = d3.select("#bleaching-filter")
   .append("select")
   .attr("id", "filterBleaching")
@@ -85,15 +86,17 @@ function intialize(filterVal) {
     .style("opacity", 0);
 
   d3.csv("data/CoralBleachingCleaned.csv", function (error, data) {
-    
+      
+    d3.select("#coral-line-title h1").remove();
     d3.select("#coral-line svg").remove();
-
+    
     lineData = data;
     highArray = [];
     mediumArray = [];
     lowArray = [];
     noArray = [];
 
+    //filter all of the bleaching serverity types into separate arrays to generate the line graph
     if(filterVal == "high" || filterVal == "all") {
       console.log(filterVal);
       var high = data.filter(function (d) {
@@ -369,6 +372,9 @@ function intialize(filterVal) {
           return "None"
         }
       });
+
+    d3.select("#coral-line-title").append('h1')
+      .text('Number of Coral Bleaching Cases per Year');
 
     /* Add 'curtain' rectangle to hide entire graph */
     var curtain = svgLine.append('rect')

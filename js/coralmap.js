@@ -298,8 +298,7 @@ function mapAnimation(dataset, year) {
 }
 
 function filterUpdate(dataset) {
-  let currentYear = document.getElementById("yearInput").value;
-
+  let currentYear = document.getElementById("yearInput").value;s
   filterData = dataset;
 
   if (currentYear != yearMax) {

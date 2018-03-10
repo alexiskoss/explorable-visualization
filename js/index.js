@@ -3,8 +3,6 @@ let columns = parseInt($("#columns").val());
 let divideVal = 0;
 let boardSize = 0;
 let value = 0;
-let coralRows = Math.floor(rows * 0.70);
-let fishRows = rows - coralRows;
 let tempChoice = 25;
 let popTimer;
 let shrinkPopTimer;
@@ -24,7 +22,7 @@ var coralColors = d3.scale.threshold()
   .domain([8, 18, 23, 30, 41, 51]);
 
 $('#start').click(function () {
-  popTimer = setInterval(populate, 2000);
+  popTimer = setInterval(populate, 1500);
   popTimerArray.push(popTimer);
   $(this).attr("disabled", true);
   $('#stop').attr("disabled", false);
@@ -83,8 +81,10 @@ $('#cold-temp').click(function () {
   }
 
   // start shrinking fish pop + killing coral
-  shrinkPopTimer = setInterval(shrink, 2000);
+  shrinkPopTimer = setInterval(shrink, 1500);
   shrinkPopArray.push(shrinkPopTimer);
+  $('#start').attr("disabled", true);
+  $('#stop').attr("disabled", false);
 
   // stop populating coral + fish during healthy
   for (var idx in popTimerArray) {
@@ -130,8 +130,10 @@ $('#tolerable-cold-temp').click(function () {
   }
 
   // start populating fish during stressed
-  popFishTimer = setInterval(populateFish, 2000);
+  popFishTimer = setInterval(populateFish, 1500);
   popFishArray.push(popFishTimer);
+  $('#start').attr("disabled", true);
+  $('#stop').attr("disabled", false);
 
   // stop removing fish + killing coral during bleached
   for (var idx in shrinkPopArray) {
@@ -172,8 +174,10 @@ $('#optimal-temp').click(function () {
     .style('background-color', colors(tempChoice));
 
   // start populating coral + fish
-  popTimer = setInterval(populate, 2000);
+  popTimer = setInterval(populate, 1500);
   popTimerArray.push(popTimer);
+  $('#start').attr("disabled", true);
+  $('#stop').attr("disabled", false);
 
   // stop removing fish + killing coral during bleached
   for (var idx in shrinkPopArray) {
@@ -219,8 +223,10 @@ $('#tolerable-hot-temp').click(function () {
   }
 
   // start populating fish during stressed
-  popFishTimer = setInterval(populateFish, 2000);
+  popFishTimer = setInterval(populateFish, 1500);
   popFishArray.push(popFishTimer);
+  $('#start').attr("disabled", true);
+  $('#stop').attr("disabled", false);
 
   // stop removing fish + killing coral during bleached
   for (var idx in shrinkPopArray) {
@@ -266,8 +272,10 @@ $('#hot-temp').click(function () {
   }
 
   // start shrinking fish pop + killing coral
-  shrinkPopTimer = setInterval(shrink, 2000);
+  shrinkPopTimer = setInterval(shrink, 1500);
   shrinkPopArray.push(shrinkPopTimer);
+  $('#start').attr("disabled", true);
+  $('#stop').attr("disabled", false);
 
   // stop populating coral + fish during healthy
   for (var idx in popTimerArray) {
@@ -281,111 +289,86 @@ $('#hot-temp').click(function () {
 });
 
 function populateFish() {
-  let fishExit = false;
+  let exit = false;
 
   for (let i = 1; i <= rows; i++) {
     for (let j = 1; j <= columns; j++) {
       let randomNumber = Math.floor((Math.random() * 100) + 1);
-      if (fishRows >= i) {
-        if (fishExit) {
-          break;
-        }
-        if ($(`#row${i} #col${j}`).html() == "") {
-          if (randomNumber <= 3) {
-            $(`#row${i} #col${j}`).append(`<span class="fish"><img class="fish" src="svg/fishes.svg" height="${value / 2}px" width="${value / 2}px"></span>`);
-            fishExit = true;
-          }
+      if ($(`#row${i} #col${j}`).html() == "") {
+        if (randomNumber <= 3) {
+          $(`#row${i} #col${j}`).append(`<span class="fish"><img class="fish" src="svg/fishes.svg" height="${value / 2}px" width="${value / 2}px"></span>`);
+          exit = true;
         }
       }
+
       $(`#row${i} #col${j} span img`).css("margin-top", ((value / 2) / 2) - 1);
       $(`#row${i} #col${j} span img`).css("margin-bottom", ((value / 2) / 2) - 1);
       convertToSvg();
+
+      if (exit) {
+        break;
+      }
     }
-    if (fishExit) {
+    if (exit) {
       break;
     }
   }
 }
 
 function shrink() {
-  let fishExit = false;
-  let coralExit = false;
+  let exit = false;
 
   for (let i = 1; i <= rows; i++) {
     for (let j = 1; j <= columns; j++) {
       let randomNumber = Math.floor((Math.random() * 100) + 1);
-      if (fishRows >= i) {
-        if (fishExit) {
-          break;
-        }
-        if ($(`#row${i} #col${j} span`).html() != "") {
-          if (randomNumber <= 7) {
-            $(`#row${i} #col${j} span`).empty();
-            fishExit = true;
-          }
-        }
-      } else {
-        if (coralExit) {
-          break;
-        }
-        if ($(`#row${i} #col${j} span`).html() != "") {
-          if (randomNumber <= 12) {
-            $(`#row${i} #col${j} span`).addClass("dead");
-            d3.select(`#row${i} #col${j} span .coral-svg`).selectAll('path')
-              .transition()
-              .duration(1000)
-              .style('fill', "#3e3433");
-            coralExit = true;
-          }
+      if ($(`#row${i} #col${j} span`).html() != "") {
+        if (randomNumber <= 7) {
+          $(`#row${i} #col${j} span`).empty();
+          exit = true;
+        } else if (randomNumber <= 12) {
+          $(`#row${i} #col${j} span`).addClass("dead");
+          d3.select(`#row${i} #col${j} span .coral-svg`).selectAll('path')
+            .transition()
+            .duration(1000)
+            .style('fill', "#3e3433");
+          exit = true;
         }
       }
-      if (fishExit || coralExit) {
+      if (exit) {
         break;
       }
     }
-    if (fishExit || coralExit) {
+    if (exit) {
       break;
     }
   }
 }
 
 function populate() {
-  let fishExit = false;
-  let coralExit = false;
+  let exit = false;
 
   for (let i = 1; i <= rows; i++) {
     for (let j = 1; j <= columns; j++) {
       let randomNumber = Math.floor((Math.random() * 100) + 1);
-      if (fishRows >= i) {
-        if (fishExit) {
-          break;
-        }
-        if ($(`#row${i} #col${j}`).html() == "") {
-          if (randomNumber <= 5) {
-            $(`#row${i} #col${j}`).append(`<span class="fish"><img class="fish" src="svg/fishes.svg" height="${value / 2}px" width="${value / 2}px"></span>`);
-            fishExit = true;
-          }
-        }
-      } else {
-        if (coralExit) {
-          break;
-        }
-        if ($(`#row${i} #col${j}`).html() == "") {
-          if (randomNumber <= 10) {
-            $(`#row${i} #col${j}`).append(`<span class="coral"><img class="coral-svg" src="svg/coral.svg" height="${value / 2}px" width="${value / 2}px"></span>`);
-            coralExit = true;
-          }
+      if ($(`#row${i} #col${j}`).html() == "") {
+        if (randomNumber <= 5) {
+          $(`#row${i} #col${j}`).append(`<span class="fish"><img class="fish" src="svg/fishes.svg" height="${value / 2}px" width="${value / 2}px"></span>`);
+          exit = true;
+        } else if (randomNumber <= 10) {
+          $(`#row${i} #col${j}`).append(`<span class="coral"><img class="coral-svg" src="svg/coral.svg" height="${value / 2}px" width="${value / 2}px"></span>`);
+          exit = true;
         }
       }
+
       $(`#row${i} #col${j} span img`).css("margin-top", ((value / 2) / 2) - 1);
       $(`#row${i} #col${j} span img`).css("margin-bottom", ((value / 2) / 2) - 1);
       convertToSvg();
 
-      if (fishExit || coralExit) {
+      if (exit) {
         break;
       }
     }
-    if (fishExit || coralExit) {
+    if (exit) {
       break;
     }
   }
@@ -408,7 +391,7 @@ $("#rows").on("input", function (e) {
   }
 
   gridSize();
-  popTimer = setInterval(populate, 2000);
+  popTimer = setInterval(populate, 1500);
   popTimerArray.push(popTimer);
 });
 
@@ -429,7 +412,7 @@ $("#columns").on("input", function (e) {
   }
 
   gridSize();
-  popTimer = setInterval(populate, 2000);
+  popTimer = setInterval(populate, 1500);
   popTimerArray.push(popTimer);
 });
 
@@ -458,19 +441,14 @@ function gridSize() {
       }
 
       let randomNumber = Math.floor((Math.random() * 100) + 1)
-      if (fishRows >= i) {
-        if (randomNumber <= 40) {
-          $(`#row${i}`).append(`<div class="ocean" id="col${j}"><span class="fish"><img class="fish-svg" src="svg/fishes.svg" height="${value / 2}px" width="${value / 2}px"></span></div>`);
-        } else {
-          $(`#row${i}`).append(`<div class="ocean" id="col${j}"></div>`);
-        }
+      if (randomNumber <= 40) {
+        $(`#row${i}`).append(`<div class="ocean" id="col${j}"><span class="fish"><img class="fish-svg" src="svg/fishes.svg" height="${value / 2}px" width="${value / 2}px"></span></div>`);
+      } else if (randomNumber <= 70) {
+        $(`#row${i}`).append(`<div class="ocean" id="col${j}"><span class="coral"><img class="coral-svg" src="svg/coral.svg" height="${value / 2}px" width="${value / 2}px"></span></div>`);
       } else {
-        if (randomNumber <= 70) {
-          $(`#row${i}`).append(`<div class="ocean" id="col${j}"><span class="coral"><img class="coral-svg" src="svg/coral.svg" height="${value / 2}px" width="${value / 2}px"></span></div>`);
-        } else {
-          $(`#row${i}`).append(`<div class="ocean" id="col${j}"></div>`);
-        }
+        $(`#row${i}`).append(`<div class="ocean" id="col${j}"></div>`);
       }
+
 
       $(`#row${i} #col${j} span img`).css("margin-top", ((value / 2) / 2) - 1);
       $(`#row${i} #col${j} span img`).css("margin-bottom", ((value / 2) / 2) - 1);
@@ -515,8 +493,8 @@ let tideslider = d3.select("#tide-slider");
 
 function makeTideSlider() {
   tideslider.append('p')
-  .text('Select tide height: normal')
-  .attr("id", "tide-desc");
+    .text('Select tide height: normal')
+    .attr("id", "tide-desc");
 
   tideslider.append('input')
     .style("text-align", "center")
@@ -530,13 +508,13 @@ function makeTideSlider() {
     .style("clear", 'both')
     .on('change', function () {
       tideslider.selectAll('p')
-        .text(function() {
+        .text(function () {
           let tideHeight = "";
-          if(document.getElementById("tideInput").value == 1) {
+          if (document.getElementById("tideInput").value == 1) {
             tideHeight = "low"
-          } else if(document.getElementById("tideInput").value == 2) {
+          } else if (document.getElementById("tideInput").value == 2) {
             tideHeight = "normal"
-          } else if(document.getElementById("tideInput").value == 3) {
+          } else if (document.getElementById("tideInput").value == 3) {
             tideHeight = "high"
           }
           return 'Select tide height: ' + tideHeight;

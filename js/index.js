@@ -23,20 +23,41 @@ var coralColors = d3.scale.threshold()
   .range(["#FFFFFF", "#FFFFFF", "#e8acb8", "#E05073", "#e8acb8", "#EFE5E5"])
   .domain([8, 18, 23, 30, 41, 51]);
 
-$('#start').click(function(){
+$('#start').click(function () {
   popTimer = setInterval(populate, 2000);
   popTimerArray.push(popTimer);
+  $(this).attr("disabled", true);
+  $('#stop').attr("disabled", false);
 });
-  
 
-$('#cold-temp').click(function(){
+$('#stop').click(function () {
+  // stop populating fish during stressed 
+  for (var idx in popFishArray) {
+    clearInterval(popFishArray[idx]);
+  }
+
+  // stop removing fish + killing coral during bleached
+  for (var idx in shrinkPopArray) {
+    clearInterval(shrinkPopArray[idx]);
+  }
+
+  // stop populating fish + coral during healthy
+  for (var idx in popTimerArray) {
+    clearInterval(popTimerArray[idx]);
+  }
+
+  $(this).attr("disabled", true);
+  $('#start').attr("disabled", false);
+});
+
+$('#cold-temp').click(function () {
   tempChoice = 17;
   $('#slider-value').empty();
   $('#slider-value').append(`Current water temperature is below 18° C`);
 
   // remove dead coral
   let deadCoral = d3.selectAll('.dead');
-  for(let i = 0; i < deadCoral.length; i++) {
+  for (let i = 0; i < deadCoral.length; i++) {
     $(deadCoral[i]).empty();
     $(deadCoral[i]).removeClass("dead");
   }
@@ -76,14 +97,14 @@ $('#cold-temp').click(function(){
   }
 });
 
-$('#tolerable-cold-temp').click(function(){
+$('#tolerable-cold-temp').click(function () {
   tempChoice = 18;
   $('#slider-value').empty();
   $('#slider-value').append(`Current water temperature is between 18° C and 22° C`);
 
   // remove dead coral
   let deadCoral = d3.selectAll('.dead');
-  for(let i = 0; i < deadCoral.length; i++) {
+  for (let i = 0; i < deadCoral.length; i++) {
     $(deadCoral[i]).empty();
     $(deadCoral[i]).removeClass("dead");
   }
@@ -123,14 +144,14 @@ $('#tolerable-cold-temp').click(function(){
   }
 });
 
-$('#optimal-temp').click(function(){
+$('#optimal-temp').click(function () {
   tempChoice = 23;
   $('#slider-value').empty();
   $('#slider-value').append(`Current water temperature is between 23° C and 29° C`);
 
   // remove dead coral
   let deadCoral = d3.selectAll('.dead');
-  for(let i = 0; i < deadCoral.length; i++) {
+  for (let i = 0; i < deadCoral.length; i++) {
     $(deadCoral[i]).empty();
     $(deadCoral[i]).removeClass("dead");
   }
@@ -165,14 +186,14 @@ $('#optimal-temp').click(function(){
   }
 });
 
-$('#tolerable-hot-temp').click(function(){
+$('#tolerable-hot-temp').click(function () {
   tempChoice = 30;
   $('#slider-value').empty();
   $('#slider-value').append(`Current water temperature is between 30° C and 40° C`);
 
   // remove dead coral
   let deadCoral = d3.selectAll('.dead');
-  for(let i = 0; i < deadCoral.length; i++) {
+  for (let i = 0; i < deadCoral.length; i++) {
     $(deadCoral[i]).empty();
     $(deadCoral[i]).removeClass("dead");
   }
@@ -212,18 +233,18 @@ $('#tolerable-hot-temp').click(function(){
   }
 });
 
-$('#hot-temp').click(function(){
+$('#hot-temp').click(function () {
   tempChoice = 41;
   $('#slider-value').empty();
   $('#slider-value').append(`Current water temperature is above 40° C`);
 
   // remove dead coral
   let deadCoral = d3.selectAll('.dead');
-  for(let i = 0; i < deadCoral.length; i++) {
+  for (let i = 0; i < deadCoral.length; i++) {
     $(deadCoral[i]).empty();
     $(deadCoral[i]).removeClass("dead");
   }
-  
+
   d3.selectAll('.coral-svg').selectAll('path')
     .transition()
     .duration(1000)
@@ -275,7 +296,7 @@ function populateFish() {
             fishExit = true;
           }
         }
-      } 
+      }
       $(`#row${i} #col${j} span img`).css("margin-top", ((value / 2) / 2) - 1);
       $(`#row${i} #col${j} span img`).css("margin-bottom", ((value / 2) / 2) - 1);
       convertToSvg();
@@ -311,9 +332,9 @@ function shrink() {
           if (randomNumber <= 12) {
             $(`#row${i} #col${j} span`).addClass("dead");
             d3.select(`#row${i} #col${j} span .coral-svg`).selectAll('path')
-            .transition()
-            .duration(1000)
-            .style('fill', "#3e3433");
+              .transition()
+              .duration(1000)
+              .style('fill', "#3e3433");
             coralExit = true;
           }
         }
@@ -406,7 +427,7 @@ $("#columns").on("input", function (e) {
   for (var idx in popTimerArray) {
     clearInterval(popTimerArray[idx]);
   }
-  
+
   gridSize();
   popTimer = setInterval(populate, 2000);
   popTimerArray.push(popTimer);
@@ -489,3 +510,38 @@ function convertToSvg() {
     }, 'xml');
   });
 }
+
+let tideslider = d3.select("#tide-slider");
+
+function makeTideSlider() {
+  tideslider.append('p')
+  .text('Select tide height: normal')
+  .attr("id", "tide-desc");
+
+  tideslider.append('input')
+    .style("text-align", "center")
+    .attr('class', 'inputRadius')
+    .attr('id', 'tideInput')
+    .attr('type', 'range')
+    .attr('min', 1)
+    .attr('max', 3)
+    .attr('step', 1)
+    .attr('value', 3)
+    .style("clear", 'both')
+    .on('change', function () {
+      tideslider.selectAll('p')
+        .text(function() {
+          let tideHeight = "";
+          if(document.getElementById("tideInput").value == 1) {
+            tideHeight = "low"
+          } else if(document.getElementById("tideInput").value == 2) {
+            tideHeight = "normal"
+          } else if(document.getElementById("tideInput").value == 3) {
+            tideHeight = "high"
+          }
+          return 'Select tide height: ' + tideHeight;
+        })
+    });
+}
+
+makeTideSlider();

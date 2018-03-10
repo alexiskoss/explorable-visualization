@@ -147,11 +147,13 @@ path.area {
 
 /* grid */
 #grid-container {
+    margin: 0 auto;
     font-size: 26px;
     display: 'inline-block';
 }
 
 #grid-bg {
+    margin: 0 auto;
     width: 528px;
     height: 462px;
     position: relative;

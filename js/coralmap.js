@@ -234,7 +234,7 @@ function makeInputSlider() {
         .style("text-align", "center")
         .attr("id", "range-desc");
 
-      filterUpdate(dataset);
+      linkUpdate(document.getElementById("yearInput").value);
     });
 
   coralmapslider.append('p')
@@ -288,17 +288,6 @@ function automaticMap() {
 
 function mapAnimation(dataset, year) {
   let currentYear = parseInt(year);
-  filterData = dataset;
-
-  if (currentYear != yearMax) {
-    filterData = filterData.filter(d => d.year <= currentYear);
-  }
-
-  drawVis(filterData);
-}
-
-function filterUpdate(dataset) {
-  let currentYear = document.getElementById("yearInput").value;s
   filterData = dataset;
 
   if (currentYear != yearMax) {

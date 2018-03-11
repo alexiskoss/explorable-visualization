@@ -1,6 +1,6 @@
 ## Coral Bleaching Explorable Explanation
 
-To run this explorable explanation, clone the GitHub repo and **cd** into **explorable-visualization** folder located on your computer. 
+To run this explorable explanation, open up a new terminal window and clone the GitHub repo. Then **cd** into **explorable-visualization** folder located on your computer. 
 
 Before you start a server, you must run the command: **npm install**
 *(you must install the additional node modules or the application will not run properly; these are required dependencies)* 

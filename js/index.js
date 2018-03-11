@@ -58,7 +58,7 @@ $('#stop').click(function () {
 $('#cold-temp').click(function () {
   tempChoice = 17;
   $('#slider-value').empty();
-  $('#slider-value').append(`Current water temperature is below 18° C`);
+  $('#slider-value').append(`<h6>Current water temperature is below 18° C</h6>`);
 
   removeDeadCoral();
 
@@ -97,7 +97,7 @@ $('#cold-temp').click(function () {
 $('#tolerable-cold-temp').click(function () {
   tempChoice = 18;
   $('#slider-value').empty();
-  $('#slider-value').append(`Current water temperature is between 18° C and 22° C`);
+  $('#slider-value').append(`<h6>Current water temperature is between 18° C and 22° C</h6>`);
 
   removeDeadCoral();
 
@@ -141,7 +141,7 @@ $('#tolerable-cold-temp').click(function () {
 $('#optimal-temp').click(function () {
   tempChoice = 23;
   $('#slider-value').empty();
-  $('#slider-value').append(`Current water temperature is between 23° C and 29° C`);
+  $('#slider-value').append(`<h6>Current water temperature is between 23° C and 29° C</h6>`);
 
   removeDeadCoral();
 
@@ -180,7 +180,7 @@ $('#optimal-temp').click(function () {
 $('#tolerable-hot-temp').click(function () {
   tempChoice = 30;
   $('#slider-value').empty();
-  $('#slider-value').append(`Current water temperature is between 30° C and 40° C`);
+  $('#slider-value').append(`<h6>Current water temperature is between 30° C and 40° C</h6>`);
 
   removeDeadCoral();
 
@@ -224,7 +224,7 @@ $('#tolerable-hot-temp').click(function () {
 $('#hot-temp').click(function () {
   tempChoice = 41;
   $('#slider-value').empty();
-  $('#slider-value').append(`Current water temperature is above 40° C`);
+  $('#slider-value').append(`<h6>Current water temperature is above 40° C</h6>`);
 
   removeDeadCoral();
 

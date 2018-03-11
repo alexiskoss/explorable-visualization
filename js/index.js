@@ -1,5 +1,5 @@
-let rows = parseInt($("#rows").val());
-let columns = parseInt($("#columns").val());
+let rows = 8;
+let columns = 9;
 let divideVal = 0;
 let boardSize = 0;
 let value = 0;
@@ -31,6 +31,7 @@ $('#start').click(function () {
   popTimerArray.push(popTimer);
   $(this).attr("disabled", true);
   $('#stop').attr("disabled", false);
+  $('#tideInput').attr("disabled", false);
 });
 
 $('#stop').click(function () {
@@ -51,6 +52,7 @@ $('#stop').click(function () {
 
   $(this).attr("disabled", true);
   $('#start').attr("disabled", false);
+  $('#tideInput').attr("disabled", true);
 });
 
 $('#cold-temp').click(function () {
@@ -350,7 +352,6 @@ function populate() {
     for (let j = 1; j <= columns; j++) {
       let randomNumber = Math.floor((Math.random() * 100) + 1);
       if ($(`#row${i} #col${j}`).html() == "") {
-        console.log(`${i}, ${j}`)
         if (randomNumber <= 5) {
           $(`#row${i} #col${j}`).append(`<span class="fish"><img class="fish" src="svg/fishes.svg" height="${value / 2}px" width="${value / 2}px"></span>`);
           exit = true;
@@ -374,52 +375,7 @@ function populate() {
   }
 }
 
-$("#rows").on("input", function (e) {
-  // stop populating fish during stressed 
-  for (var idx in popFishArray) {
-    clearInterval(popFishArray[idx]);
-  }
-
-  // stop removing fish + killing coral during bleached
-  for (var idx in shrinkPopArray) {
-    clearInterval(shrinkPopArray[idx]);
-  }
-
-  // stop populating fish + coral during healthy
-  for (var idx in popTimerArray) {
-    clearInterval(popTimerArray[idx]);
-  }
-
-  gridSize();
-  popTimer = setInterval(populate, 1500);
-  popTimerArray.push(popTimer);
-});
-
-$("#columns").on("input", function (e) {
-  // stop populating fish during stressed 
-  for (var idx in popFishArray) {
-    clearInterval(popFishArray[idx]);
-  }
-
-  // stop removing fish + killing coral during bleached
-  for (var idx in shrinkPopArray) {
-    clearInterval(shrinkPopArray[idx]);
-  }
-
-  // stop populating fish + coral during healthy
-  for (var idx in popTimerArray) {
-    clearInterval(popTimerArray[idx]);
-  }
-
-  gridSize();
-  popTimer = setInterval(populate, 1500);
-  popTimerArray.push(popTimer);
-});
-
 function gridSize() {
-  rows = parseInt($("#rows").val());
-  columns = parseInt($("#columns").val());
-
   if (columns > rows) {
     boardSize = 528;
     divideVal = columns;
@@ -446,7 +402,6 @@ function gridSize() {
       } else {
         $(`#row${i}`).append(`<div class="ocean" id="col${j}"></div>`);
       }
-
 
       $(`#row${i} #col${j} span img`).css("margin-top", ((value / 2) / 2) - 1);
       $(`#row${i} #col${j} span img`).css("margin-bottom", ((value / 2) / 2) - 1);
@@ -503,6 +458,7 @@ function makeTideSlider() {
     .attr('max', 3)
     .attr('step', 1)
     .attr('value', 3)
+    .attr('disabled', true)
     .style("clear", 'both')
     .on('change', function () {
       tideslider.selectAll('p')
@@ -527,14 +483,6 @@ function makeTideSlider() {
 makeTideSlider();
 
 function makeTide(tideHeight) {
-  // stop populating fish + coral during healthy
-  for (var idx in popTimerArray) {
-    clearInterval(popTimerArray[idx]);
-  }
-
-  popTimer = setInterval(populate, 1500);
-  popTimerArray.push(popTimer);
-
   if (tideHeight === "low") {
     currentTide = lowTide + 1;
 
@@ -546,10 +494,13 @@ function makeTide(tideHeight) {
     // start shrinking coral pop near water line
     shrinkTideTimer = setInterval(tideShrink, 3000);
     shrinkTideArray.push(shrinkTideTimer);
-    $('#start').attr("disabled", true);
-    $('#stop').attr("disabled", false);
 
-    for (let i = 1; i <= lowTide; i++) {
+    for (let i = 1; i <= columns; i++) {
+      $(`#row${currentTide} #col${i}`).removeClass("tide");
+      $(`#row${currentTide} #col${i}`).addClass("ocean");
+    }
+
+    for (let i = 1; i <= currentTide - 1; i++) {
       for (let j = 1; j <= columns; j++) {
         $(`#row${i} #col${j}`).addClass("tide");
         $(`#row${i} #col${j}`).removeClass("ocean");
@@ -563,6 +514,7 @@ function makeTide(tideHeight) {
       .style('background-color', "#FFFFFF");
   } else if (tideHeight === "normal") {
     currentTide = normalTide + 1;
+    console.log(currentTide)
 
     // stop previous tide shrink timers
     for (var idx in shrinkTideArray) {
@@ -572,15 +524,15 @@ function makeTide(tideHeight) {
     // start shrinking coral pop near water line
     shrinkTideTimer = setInterval(tideShrink, 3000);
     shrinkTideArray.push(shrinkTideTimer);
-    $('#start').attr("disabled", true);
-    $('#stop').attr("disabled", false);
 
-    for (let i = 1; i <= columns; i++) {
-      $(`#row${lowTide} #col${i}`).removeClass("tide");
-      $(`#row${lowTide} #col${i}`).addClass("ocean");
+    for (let i = 1; i <= rows; i++) {
+      for (let j = 1; j <= columns; j++) {
+        $(`#row${i} #col${j}`).removeClass("tide");
+        $(`#row${i} #col${j}`).addClass("ocean");
+      }
     }
 
-    for (let i = 1; i <= normalTide; i++) {
+    for (let i = 1; i <= currentTide - 1; i++) {
       for (let j = 1; j <= columns; j++) {
         $(`#row${i} #col${j}`).addClass("tide");
         $(`#row${i} #col${j}`).removeClass("ocean");

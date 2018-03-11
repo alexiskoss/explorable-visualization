@@ -82,6 +82,7 @@ $('.cold-temp').click(function () {
   shrinkPopArray.push(shrinkPopTimer);
   $('#start').attr("disabled", true);
   $('#stop').attr("disabled", false);
+  $('#tideInput').attr("disabled", false);
 
   // stop populating coral + fish during healthy
   for (var idx in popTimerArray) {
@@ -126,6 +127,7 @@ $('.tolerable-cold-temp').click(function () {
   popFishArray.push(popFishTimer);
   $('#start').attr("disabled", true);
   $('#stop').attr("disabled", false);
+  $('#tideInput').attr("disabled", false);
 
   // stop removing fish + killing coral during bleached
   for (var idx in shrinkPopArray) {
@@ -165,6 +167,7 @@ $('.optimal-temp').click(function () {
   popTimerArray.push(popTimer);
   $('#start').attr("disabled", true);
   $('#stop').attr("disabled", false);
+  $('#tideInput').attr("disabled", false);
 
   // stop removing fish + killing coral during bleached
   for (var idx in shrinkPopArray) {
@@ -209,6 +212,7 @@ $('.tolerable-hot-temp').click(function () {
   popFishArray.push(popFishTimer);
   $('#start').attr("disabled", true);
   $('#stop').attr("disabled", false);
+  $('#tideInput').attr("disabled", false);
 
   // stop removing fish + killing coral during bleached
   for (var idx in shrinkPopArray) {
@@ -253,6 +257,7 @@ $('.hot-temp').click(function () {
   shrinkPopArray.push(shrinkPopTimer);
   $('#start').attr("disabled", true);
   $('#stop').attr("disabled", false);
+  $('#tideInput').attr("disabled", false);
 
   // stop populating coral + fish during healthy
   for (var idx in popTimerArray) {

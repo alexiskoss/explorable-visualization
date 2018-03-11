@@ -2,6 +2,8 @@ window.sr = ScrollReveal();
 
 sr.reveal('.coral-container p', { duration: 1000, delay: 300 }, 100);
 sr.reveal('#coral-map', { duration: 1000, delay: 1000 });
+sr.reveal('.future-container', { duration: 1000, delay: 300 }, 500);
+sr.reveal('.carbon-container', { duration: 1000, delay: 300 }, 500);
 
 let dataset; //original dataset
 let filterData = "";

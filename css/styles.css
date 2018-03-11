@@ -110,7 +110,7 @@ path {
     text-align: center;
 }
 
-.coral-container {
+.coral-container, .future-container, .carbon-container {
     text-align: center;
     display: inline-block;
 }

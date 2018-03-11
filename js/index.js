@@ -514,7 +514,6 @@ function makeTide(tideHeight) {
       .style('background-color', "#FFFFFF");
   } else if (tideHeight === "normal") {
     currentTide = normalTide + 1;
-    console.log(currentTide)
 
     // stop previous tide shrink timers
     for (var idx in shrinkTideArray) {

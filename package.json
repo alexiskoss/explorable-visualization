@@ -1,0 +1,25 @@
+{
+  "name": "explorable-visualization",
+  "version": "1.0.0",
+  "description": "To run this explorable explanation, open up a new terminal window and clone the GitHub repo. Then **cd** into **explorable-visualization** folder located on your computer.",
+  "main": "index.js",
+  "dependencies": {
+    "d3-svg-legend": "^2.25.5",
+    "d3-tip": "^0.7.1",
+    "waypoints": "^4.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexiskoss/explorable-visualization.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexiskoss/explorable-visualization/issues"
+  },
+  "homepage": "https://github.com/alexiskoss/explorable-visualization#readme"
+}

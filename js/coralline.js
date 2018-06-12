@@ -22,7 +22,6 @@ d3.csv("data/CoralBleachingCleaned.csv", function (error, data) {
   
   select
   .on("change", function(d) {
-    console.log(this.value);
     intialize(this.value);
   });
 
@@ -98,7 +97,6 @@ function intialize(filterVal) {
 
     //filter all of the bleaching serverity types into separate arrays to generate the line graph
     if(filterVal == "high" || filterVal == "all") {
-      console.log(filterVal);
       var high = data.filter(function (d) {
         return d.bleaching_severity == "HIGH";
       });
@@ -119,7 +117,6 @@ function intialize(filterVal) {
     }
 
     if(filterVal == "medium" || filterVal == "all") {
-      console.log("what")
       var medium = data.filter(function (d) {
         return d.bleaching_severity == "Medium";
       });
